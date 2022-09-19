@@ -8,8 +8,10 @@ const io = new Server(server);
 const uiIo = new Server(uiServer);
 const port = process.env.PORT || 8080;
 const uiport = process.env.UI_PORT || 8081;
-var front = "";
+var uisocket = "";
+var connsocket = "";
 io.on('connection', (socket) => {
+    connsocket = socket;
     console.log('IO: a user connected');
     socket.on('disconnect', () => {
       console.log('user disconnected');
@@ -27,6 +29,9 @@ server.listen(port, () => {
 uiIo.on('connection', (socket) => {
     front = socket;
     console.log('uiIO: a user connected');
+    socket.on("control", (control) => {
+      connsocket.emit("control", control);
+    });
     socket.on('disconnect', () => {
       front = "";
       console.log('user disconnected');
