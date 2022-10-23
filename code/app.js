@@ -32,6 +32,9 @@ uiIo.on('connection', (socket) => {
     socket.on("control", (control) => {
       connsocket.emit("control", control);
     });
+    socket.on("user_on", (status) => {
+      connsocket.emit("user_on", status);
+    });
     socket.on('disconnect', () => {
       front = "";
       console.log('user disconnected');
