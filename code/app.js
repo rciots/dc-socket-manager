@@ -17,7 +17,6 @@ io.on('connection', (socket) => {
       console.log('user disconnected');
     });
     socket.on('video', (data) => {
-      console.log("sockets: " + uiIo.sockets.sockets);
       if (uiIo.sockets.sockets != "") {
         uiIo.emit("video", data);
       }
