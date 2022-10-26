@@ -17,8 +17,9 @@ io.on('connection', (socket) => {
       console.log('user disconnected');
     });
     socket.on('video', (data) => {
-      if (front != "") {
-        front.emit("video", data);
+      console.log("sockets: " + uiIo.sockets.sockets);
+      if (uiIo.sockets.sockets != "") {
+        uiIo.emit("video", data);
       }
     });
   });
@@ -27,7 +28,7 @@ server.listen(port, () => {
 });
 
 uiIo.on('connection', (socket) => {
-    front = socket;
+    uisocket = socket;
     console.log('uiIO: a user connected');
     socket.on("control", (control) => {
       connsocket.emit("control", control);
@@ -36,7 +37,7 @@ uiIo.on('connection', (socket) => {
       connsocket.emit("user_on", status);
     });
     socket.on('disconnect', () => {
-      front = "";
+      uisocket = "";
       console.log('user disconnected');
     });
   });
