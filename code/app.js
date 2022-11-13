@@ -29,12 +29,14 @@ server.listen(port, () => {
 uiIo.on('connection', (socket) => {
     uisocket = socket;
     console.log('uiIO: a user connected');
-    socket.on("control", (control) => {
-      connsocket.emit("control", control);
-    });
-    socket.on("user_on", (status) => {
-      connsocket.emit("user_on", status);
-    });
+    if (connsocket != ""){
+      socket.on("control", (control, act) => {
+        connsocket.emit("control", control, act);
+      });
+      socket.on("user_on", (status) => {
+        connsocket.emit("user_on", status);
+      });
+    }
     socket.on('disconnect', () => {
       uisocket = "";
       console.log('user disconnected');
