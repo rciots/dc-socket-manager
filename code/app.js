@@ -31,6 +31,7 @@ uiIo.on('connection', (socket) => {
     console.log('uiIO: a user connected');
     if (connsocket != ""){
       socket.on("control", (control, act) => {
+        console.log("emit control: " + control + " act: " + act)
         connsocket.emit("control", control, act);
       });
       socket.on("user_on", (status) => {
